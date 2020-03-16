@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Test Application 2</title>
+    <link rel="stylesheet" href="style.css">
+    <p id="TestMessage1">Script not working 1!</p>
+    <p id="TestMessage2">Script not working 2!</p>
+</head>
+
+<body>
+
+    <textarea id="InputField" rows="34" cols="93" autofocus="autofocus">Test 2</textarea>
+
+    <script type="text/javascript">
+        var text = document.getElementById("InputField").innerHTML;
+
+        function saveTextAsFile() {
+            var textToWrite = document.getElementById('InputField').innerHTML;
+            var textFileAsBlob = new Blob([textToWrite], {
+                type: 'text/plain'
+            });
+            var fileNameToSaveAs = "text.txt";
+
+            var downloadLink = document.createElement("a");
+            downloadLink.download = fileNameToSaveAs;
+            downloadLink.innerHTML = "Download File";
+            if (window.webkitURL != null) {
+                // Chrome allows the link to be clicked without actually adding it to the DOM.
+                downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+            } else {
+                // Firefox requires the link to be added to the DOM before it can be clicked.
+                downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+                downloadLink.onclick = destroyClickedElement;
+                downloadLink.style.display = "none";
+                document.body.appendChild(downloadLink);
+            }
+
+            downloadLink.click();
+
+        }
+
+        document.getElementById("TestMessage1").remove();
+    </script>
+
+    <script type="text/javascript">
+        document.getElementById("TestMessage2").remove();
+    </script>
+
+</body>
+
+</html>

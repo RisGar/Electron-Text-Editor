@@ -1,0 +1,22 @@
+{
+  "name": "test_2",
+  "version": "1.0.0",
+  "description": "electron test notepad",
+  "main": "main.js",
+  "dependencies": {
+    "electron": "^8.1.1"
+  },
+  "devDependencies": {
+    "requirejs": "^2.3.6"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run": "electron ."
+  },
+  "keywords": [
+    "electron",
+    "notepad"
+  ],
+  "author": "Rishab Garg",
+  "license": "ISC"
+}
