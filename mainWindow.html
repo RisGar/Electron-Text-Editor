@@ -11,13 +11,14 @@
 
 <body>
 
-    <textarea id="InputField" rows="34" cols="93" autofocus="autofocus">Test 2</textarea>
+    <textarea id="InputField" rows="34" cols="93" autofocus="autofocus"></textarea>
 
     <script type="text/javascript">
-        var text = document.getElementById("InputField").innerHTML;
 
         function saveTextAsFile() {
-            var textToWrite = document.getElementById('InputField').innerHTML;
+
+            /*var textToWrite = document.getElementById('InputField').value;
+            console.log(textToWrite);
             var textFileAsBlob = new Blob([textToWrite], {
                 type: 'text/plain'
             });
@@ -37,9 +38,59 @@
                 document.body.appendChild(downloadLink);
             }
 
-            downloadLink.click();
+            downloadLink.click();*/
+
+            const fs = require("fs");
+
+            dialog.showSaveDialog(fileName => {
+              if (fileName === undefined) {
+                console.log("Saving canceled");
+                return;
+              }
+
+              let content = "Some text to save into the file";
+
+              fs.writeFile(fileName, content, err => {
+                if (err) {
+                  alert(err.message);
+                }
+                alert("The file has been successfully saved");
+              });
+
+            });
+
+
+            var textToWrite = document.getElementById('InputField').value;
+
+            var textFileAsBlob = new Blob([textToWrite], {
+                type: 'text/plain'
+            });
+
+            let content = "Some text to save into the file";
+            
+            fs.writeFile(fileName, content, err => {
+                if (err) {
+                  alert(err.message);
+                }
+                alert("The file has been successfully saved");
+              });
+
 
         }
+
+        /*function openTextAsFile() {
+
+            
+        }*/
+
+        function newFile() {
+
+            var oldText = document.getElementById("InputField").innerHTML;
+            oldText.replace("");
+
+
+        }
+
 
         document.getElementById("TestMessage1").remove();
     </script>

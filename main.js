@@ -3,7 +3,8 @@ const url = require("url");
 const path = require("path");
 const fs = require("fs");
 const { ipcMain } = require("electron").ipcMain;
-const { webContents } = require('electron')
+const { webContents } = require("electron");
+const { dialog } = require("electron");
 
 const { app, BrowserWindow, Menu } = electron;
 
@@ -20,20 +21,45 @@ app.on("ready", function() {
     })
   );
 
-  mainWindow.webContents.send('test', 123);
-
+  mainWindow.webContents.send("test", 123);
 
   const mainMenuTemplate = [
     {
       label: "File",
       submenu: [
-        { label: "New" },
-        { label: "Open" },
+        {
+          label: "New",
+          click() {
+            mainWindow.webContents.executeJavaScript(`newFile()`);
+          }
+        },
+
+        {
+          label: "Open",
+          click() {
+            dialog
+              .showOpenDialogSync({
+                properties: ["openFile"],
+                filters: [
+                  { name: "Text Files", extensions: ["txt"] },
+                  { name: "All Files", extensions: ["*"] }
+                ]
+              })
+              .then(result => {
+                console.log(result.webContents);
+              })
+              .catch(err => {
+                console.log(err);
+              });
+
+            mainWindow.webContents.executeJavaScript(`openTextAsFile()`);
+          }
+        },
         {
           label: "Save As",
           click() {
-            
-            mainWindow.webContents.executeJavaScript(`saveTextAsFile()`);
+
+              mainWindow.webContents.executeJavaScript(`saveTextAsFile()`);
 
           }
         },
