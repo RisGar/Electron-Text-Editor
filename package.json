@@ -4,7 +4,7 @@
   "description": "electron test notepad",
   "main": "main.js",
   "dependencies": {
-    "electron": "^8.1.1"
+    "electron": "^9.4.0"
   },
   "devDependencies": {
     "requirejs": "^2.3.6"
